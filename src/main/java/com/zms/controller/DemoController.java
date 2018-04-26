@@ -21,13 +21,15 @@ public class DemoController {
 
 
     @RequestMapping(value = "login",method = {RequestMethod.GET})
-    public String  hello(String userName,String password){
+    public String  login(String userName,String password){
+        return userService.login(userName,password)==Boolean.TRUE?"登录成功":"登录失败";
+    }
+
+    @RequestMapping(value = "regisUser",method = {RequestMethod.GET})
+    public String regisUser(String userName,String password){
         User user=new User();
         user.setUsername(userName==null?"zms":userName);
         user.setPassword(password==null?"123":password);
-        boolean isLogin=userService.login(userName,password);
-        boolean isAdd=userService.addUser(user);
-        System.out.println(isLogin);
-        return "鸟";
+        return userService.addUser(user)==Boolean.TRUE?"注册成功":"注册失败";
     }
 }

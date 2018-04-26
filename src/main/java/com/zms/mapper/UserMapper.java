@@ -23,7 +23,6 @@ public interface UserMapper {
      *
      */
     @Insert("insert into user(username,password) values(#{username},#{password})")
-    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     public int addUser(User user);
 
     /**
