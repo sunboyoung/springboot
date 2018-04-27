@@ -1,5 +1,6 @@
 package com.zms.service.impl;
 
+import com.zms.controller.util.PasswordHelper;
 import com.zms.mapper.UserMapper;
 import com.zms.service.UserService;
 import com.zms.vo.User;
@@ -21,13 +22,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
+        PasswordHelper.encryptPassword(user);
         return userMapper.addUser(user)==0?Boolean.FALSE:Boolean.TRUE;
     }
 
     @Override
     public boolean login(String userName,String password) {
-        System.out.println(userName);
-        System.out.println(password);
         return userMapper.login(userName,password)==null?Boolean.FALSE:Boolean.TRUE;
+    }
+
+    @Override
+    public User queryUserByName(String userName) {
+        return userMapper.queryUserByName(userName);
     }
 }

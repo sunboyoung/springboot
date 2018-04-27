@@ -9,21 +9,28 @@ import java.util.Date;
  */
 public class User {
 
-    private int id;//用户id
-
+    private Long id;//用户id 主键
     private String username;//用户名
-
     private String password;//用户密码
+    private String salt;//加密盐
 
-    private String salt;//盐值
+    private Boolean locked = Boolean.FALSE; //用户是否被锁定
 
-    private Date createtime;//创建时间
 
-    public int getId() {
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,5 +56,42 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+
+        return true;
+    }
+
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", locked=" + locked +
+                '}';
+    }
+
+    public String getCredentialsSalt() {
+        return this.username + this.salt;
     }
 }

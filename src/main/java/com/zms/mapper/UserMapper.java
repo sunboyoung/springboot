@@ -22,7 +22,7 @@ public interface UserMapper {
      * @Date:2018/4/26 15:38
      *
      */
-    @Insert("insert into user(username,password) values(#{username},#{password})")
+    @Insert("insert into user(username,password,salt) values(#{username},#{password},#{salt})")
     public int addUser(User user);
 
     /**
@@ -35,4 +35,15 @@ public interface UserMapper {
      */
     @Select("select username,password from user where username=#{userName} and password=#{password}")
     public User login(@Param("userName") String userName,@Param("password") String password);
+
+    /**
+     * @Author:zms
+     *
+     * @Description:根据用户名查找用户信息
+     *
+     * @Date:2018/4/27 14:32
+     *
+     */
+    @Select("select * from user where username=#{userName}")
+    public User queryUserByName(String userName);
 }

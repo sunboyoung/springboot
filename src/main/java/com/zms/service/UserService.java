@@ -12,4 +12,6 @@ public interface UserService {
     public boolean addUser(User user);
 
     public boolean login(String userName,String password);
+
+    public User queryUserByName(String userName);
 }
